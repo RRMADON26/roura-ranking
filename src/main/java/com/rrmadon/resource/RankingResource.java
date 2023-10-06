@@ -1,5 +1,6 @@
 package com.rrmadon.resource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rrmadon.service.RankingService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -16,7 +17,7 @@ public class RankingResource {
 
 	@POST
 	@Path("/vote")
-	public void vote(@QueryParam("postCode") String postCode) {
+	public void vote(@QueryParam("postCode") String postCode) throws JsonProcessingException {
 		rankingService.vote(postCode);
 	}
 
