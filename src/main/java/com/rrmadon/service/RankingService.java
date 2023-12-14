@@ -29,7 +29,7 @@ public class RankingService extends UserUtil {
 	ObjectMapper objectMapper;
 
 	@Transactional
-	public void vote(String postCode) throws JsonProcessingException {
+	public void vote(String postCode, RankDTO dto) throws JsonProcessingException {
 		RankDTO rankDTO = new RankDTO();
 
 		rankDTO.setPostCode(postCode);
@@ -42,11 +42,11 @@ public class RankingService extends UserUtil {
 			Ranking to = new Ranking();
 			to.setUserCode(getUser().getCode());
 			to.setPostCode(postCode);
-			to.setVote(true);
+			to.setVote(dto.isVote());
 
 			to.persist();
 
-			rankDTO.setVote(true);
+			rankDTO.setVote(dto.isVote());
 		});
 
 		emitter.send(objectMapper.writeValueAsString(rankDTO));
